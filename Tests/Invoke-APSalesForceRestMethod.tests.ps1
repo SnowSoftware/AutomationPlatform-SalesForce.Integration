@@ -1,4 +1,4 @@
-$moduleRoot = Resolve-Path "$PSScriptRoot\.."
+$moduleRoot = Resolve-Path "$PSScriptRoot\..\Snow.SnowAutomationPlatform.SalesForce.Integration"
 $ScriptPath = "$moduleRoot\Public\Invoke-APSalesForceRestMethod.ps1"
 . $ScriptPath
 

@@ -1,4 +1,4 @@
-$moduleRoot = Resolve-Path "$PSScriptRoot\.."
+$moduleRoot = Resolve-Path "$PSScriptRoot\..\Snow.SnowAutomationPlatform.SalesForce.Integration"
 $ScriptPath = "$moduleRoot\Public\Get-APSalesForceUser.ps1"
 . $ScriptPath
 
@@ -18,6 +18,8 @@ Describe 'Get-APSalesForceUser.ps1' {
         }
 
         it 'Should try to invoke the search if a token is passed' {
+            # To mock a command we need that command available, so we dot source this specific command as well.
+            . "$moduleRoot\Public\Invoke-APSalesForceRestMethod.ps1"
             Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {return $true}
             $TestSlpat.Add('AccessToken', (New-Object -TypeName psobject))
             
