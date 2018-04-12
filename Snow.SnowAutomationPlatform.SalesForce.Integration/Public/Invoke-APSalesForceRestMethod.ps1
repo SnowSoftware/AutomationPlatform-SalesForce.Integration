@@ -1,27 +1,5 @@
 <#
-.Synopsis
-   Calls the SalesForce API with added parsing of access token
-.DESCRIPTION
-   This finction makes a call to the SalesForce API using Invoke-WebRequest.
-   It automatically parses the passed on Access Token to use correct URI,
-   and Token headers. 
-   It also tries to make sure you always send and receive objects as Json.
-.EXAMPLE
-   Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Get
-    This command will call the User endpoint using the URI and access tokens from $SalesForceToken.
-    If any result is given it will be sent back to the pipeline.
-.EXAMPLE
-   Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Post -Body $PSCustomObject
-    This command will post the pscustomobject to the user endpoint using the URI and access tokens from $SalesForceToken.
-    It will automatically convert the PSCustomObject to json format before sending it.
-.EXAMPLE
-   Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Post -Body $PSCustomObject -BaseURI 'https://my.other.salesforce.com'
-    This command will post the pscustomobject to the user endpoint using access tokens from $SalesForceToken.
-    It will use the base SalesForce URI 'https://my.other.salesforce.com'.
-    It will automatically convert the PSCustomObject to json format before sending it.
-.EXAMPLE
-   Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Post -Body {"JsonKey":"Value","OtherJsonKey":{"JsonArray":10}}
-    This command will post the already json formated body to the user endpoint using the URI and access tokens from $SalesForceToken.
+.EXTERNALHELP Snow.SnowAutomationPlatform.SalesForce.Integration-help.xml
 #>
 function Invoke-APSalesForceRestMethod
 {

@@ -1,22 +1,5 @@
 <#
-.Synopsis
-   Connect and receive a Access Token to SalesForce.
-.DESCRIPTION
-   This script will login to SalesForce, and return a Access token you can use to send API requests to SalesForce API.
-   In order to use it, you must include 'Authorization: Bearer access_token' as a header in your request.
-   For simplicity, you can pass the returned object to Invoke-APSalesForceRestMethod as a variable,
-   and it will automatically be parsed to the correct settings.
-.EXAMPLE
-   Connect-APSalesForce -SalesForceBaseURI 'https://my.salesforceuri.com' -SalesForceUser $CredentialObject -SalesForceClientSecret 'SuperSecret' -SalesForceClientID 'abc123' -SalesForceToken 'reallylongtokenname'
-    This command will return a PSCustomObject containing 
-    access_token : your access token
-    instance_url : base URI to your salesforce connection
-    id           : your userID
-    token_type   : type of token aquired
-    issued_at    : Signature created in no of seconds since Unix Epoch
-    signature    : Base64 encoded token validation
-.LINK
-   https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_username_password_oauth_flow.htm
+.EXTERNALHELP Snow.SnowAutomationPlatform.SalesForce.Integration-help.xml
 #>
 function Connect-APSalesForce
 {

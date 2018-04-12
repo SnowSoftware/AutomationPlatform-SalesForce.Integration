@@ -1,0 +1,1009 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Connect-APSalesForce</command:name>
+      <command:verb>Connect</command:verb>
+      <command:noun>APSalesForce</command:noun>
+      <maml:description>
+        <maml:para>Connect and receive a Access Token to SalesForce.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This script will login to SalesForce, and return a Access token you can use to send API requests to SalesForce API. </maml:para>
+      <maml:para>In order to use it, you must include 'Authorization: Bearer access_token' as a header in your request. </maml:para>
+      <maml:para>For simplicity, you can pass the returned object to Invoke-APSalesForceRestMethod as a variable, </maml:para>
+      <maml:para>and it will automatically be parsed to the correct settings.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Connect-APSalesForce</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>SalesForceBaseURI</maml:name>
+          <maml:Description>
+            <maml:para>Base URI to SalesForce domain, for example http://my.salesforce.com</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
+          <dev:type>
+            <maml:name>Uri</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>SalesForceUser</maml:name>
+          <maml:Description>
+            <maml:para>Credential object to use when logging in to SalesForce</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>SalesForceClientSecret</maml:name>
+          <maml:Description>
+            <maml:para>SalesForce Client_secret, also refered to as Consumer Secret</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>SalesForceClientID</maml:name>
+          <maml:Description>
+            <maml:para>SalesForce Client_Id, also refered to as Consumer Key or User Key</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>SalesForceToken</maml:name>
+          <maml:Description>
+            <maml:para>User token for SalesForce User</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+          <maml:name>SalesForceGrantType</maml:name>
+          <maml:Description>
+            <maml:para>OAuth GrantType, must be Password for username / password authentication.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Password</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>SalesForceBaseURI</maml:name>
+        <maml:Description>
+          <maml:para>Base URI to SalesForce domain, for example http://my.salesforce.com</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
+        <dev:type>
+          <maml:name>Uri</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>SalesForceUser</maml:name>
+        <maml:Description>
+          <maml:para>Credential object to use when logging in to SalesForce</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>SalesForceClientSecret</maml:name>
+        <maml:Description>
+          <maml:para>SalesForce Client_secret, also refered to as Consumer Secret</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>SalesForceClientID</maml:name>
+        <maml:Description>
+          <maml:para>SalesForce Client_Id, also refered to as Consumer Key or User Key</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>SalesForceToken</maml:name>
+        <maml:Description>
+          <maml:para>User token for SalesForce User</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <maml:name>SalesForceGrantType</maml:name>
+        <maml:Description>
+          <maml:para>OAuth GrantType, must be Password for username / password authentication.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Password</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Connect-APSalesForce -SalesForceBaseURI 'https://my.salesforceuri.com' -SalesForceUser $CredentialObject -SalesForceClientSecret 'SuperSecret' -SalesForceClientID 'abc123' -SalesForceToken 'reallylongtokenname'</dev:code>
+        <dev:remarks>
+          <maml:para>This command will return a PSCustomObject containing
+access_token : your access token
+instance_url : base URI to your salesforce connection
+id           : your userID
+token_type   : type of token aquired
+issued_at    : Signature created in no of seconds since Unix Epoch
+signature    : Base64 encoded token validation
+</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_username_password_oauth_flow.htm</maml:linkText>
+        <maml:uri>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_username_password_oauth_flow.htm</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-APSalesForceUser</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>APSalesForceUser</command:noun>
+      <maml:description>
+        <maml:para>This command searches for a user in SalesForce.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will create a hashtable that can be used to search for a user in SalesForce.</maml:para>
+      <maml:para>If an AccessToken is passed it will automatically try to invoke the search query,</maml:para>
+      <maml:para>and return any object found.</maml:para>
+      <maml:para>If no AccessToken is found, it will return th ehashtable containing the search endpoint and the method to use.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-APSalesForceUser</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>SearchString</maml:name>
+          <maml:Description>
+            <maml:para>Param1 help description</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>AccessToken</maml:name>
+          <maml:Description>
+            <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:Description>
+            <maml:para>Properties to include in result</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>@('Id','Phone','FirstName','LastName')</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>EndpointVersion</maml:name>
+          <maml:Description>
+            <maml:para>Override the default SalesForce API Version (v41.0)</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>V41.0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>SearchString</maml:name>
+        <maml:Description>
+          <maml:para>Param1 help description</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>AccessToken</maml:name>
+        <maml:Description>
+          <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Properties</maml:name>
+        <maml:Description>
+          <maml:para>Properties to include in result</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>@('Id','Phone','FirstName','LastName')</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>EndpointVersion</maml:name>
+        <maml:Description>
+          <maml:para>Override the default SalesForce API Version (v41.0)</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>V41.0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS&gt; Get-APSalesForceUser -SearchString 'username' 
+
+Name                           Value
+----                           -----
+Method                         Get 
+Endpoint                       /services/data/v41.0/search/?q=FIND+{username}+IN+name+FIELDS+RETURNING+USER(Id,Phon...</dev:code>
+        <dev:remarks>
+          <maml:para>This command will return a hashtable containing searchquery and method.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS&gt; Get-APSalesForceUser -SearchString 'username'  -EndpointVersion 'v42.0' -Properties Id,CompanyName,Division | ft -AutoSize
+
+Name     Value
+----     -----
+Method   Get
+Endpoint /services/data/v42.0/search/?q=FIND+{username}+IN+name+FIELDS+RETURNING+USER(Id,CompanyName,Division)</dev:code>
+        <dev:remarks>
+          <maml:para>This command will return a searchquery using a differend endpoint version, and custom properties to return</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-APSalesForceUser -SearchString 'username'  -AccessToken $Token</dev:code>
+        <dev:remarks>
+          <maml:para>This command will perform a search and return any results.</maml:para>
+          <maml:para>If search fails it will return the hashtable used to invoke the search.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_username_password_oauth_flow.htm</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Invoke-APSalesForceRestMethod</command:name>
+      <command:verb>Invoke</command:verb>
+      <command:noun>APSalesForceRestMethod</command:noun>
+      <maml:description>
+        <maml:para>Calls the SalesForce API with added parsing of access token</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This finction makes a call to the SalesForce API using Invoke-WebRequest. </maml:para>
+      <maml:para>It automatically parses the passed on Access Token to use correct URI and Token headers.
+It also tries to make sure you always send and receive objects as Json.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Invoke-APSalesForceRestMethod</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Endpoint</maml:name>
+          <maml:Description>
+            <maml:para>Path to endpoint in SalesForce API, for example '/services/data/v40.0/sobjects/user/'</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>AccessToken</maml:name>
+          <maml:Description>
+            <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Method</maml:name>
+          <maml:Description>
+            <maml:para>Request method</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>BaseURI</maml:name>
+          <maml:Description>
+            <maml:para>Base URI to your SalesForce domain. </maml:para>
+            <maml:para>Only needed if it is different from AccessToken instance_url</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
+          <dev:type>
+            <maml:name>Uri</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>Body</maml:name>
+          <maml:Description>
+            <maml:para>Body to send if method is put or post</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Endpoint</maml:name>
+        <maml:Description>
+          <maml:para>Path to endpoint in SalesForce API, for example '/services/data/v40.0/sobjects/user/'</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>AccessToken</maml:name>
+        <maml:Description>
+          <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Method</maml:name>
+        <maml:Description>
+          <maml:para>Request method</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>BaseURI</maml:name>
+        <maml:Description>
+          <maml:para>Base URI to your SalesForce domain. </maml:para>
+          <maml:para>Only needed if it is different from AccessToken instance_url</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Uri</command:parameterValue>
+        <dev:type>
+          <maml:name>Uri</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>Body</maml:name>
+        <maml:Description>
+          <maml:para>Body to send if method is put or post</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues />
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Get</dev:code>
+        <dev:remarks>
+          <maml:para>This command will call the User endpoint using the URI and access tokens from $SalesForceToken. </maml:para>
+          <maml:para> If any result is given it will be sent back to the pipeline.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Post -Body $PSCustomObject</dev:code>
+        <dev:remarks>
+          <maml:para>This command will post the pscustomobject to the user endpoint using the URI and access tokens from $SalesForceToken. </maml:para>
+          <maml:para> It will automatically convert the PSCustomObject to json format before sending it.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Post -Body $PSCustomObject -BaseURI 'https://my.other.salesforce.com'</dev:code>
+        <dev:remarks>
+          <maml:para>This command will post the pscustomobject to the user endpoint using access tokens from $SalesForceToken. </maml:para>
+          <maml:para>It will use the base SalesForce URI 'https://my.other.salesforce.com'.</maml:para>
+          <maml:para>It will automatically convert the PSCustomObject to json format before sending it.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>Invoke-APSalesForceRestMethod -Endpoint '/services/data/v40.0/sobjects/user/' -AccessToken $SalesForceToken -Method Post -Body {"JsonKey":"Value","OtherJsonKey":{"JsonArray":10}}</dev:code>
+        <dev:remarks>
+          <maml:para>This command will post the already json formated body to the user endpoint using the URI and access tokens from $SalesForceToken.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_username_password_oauth_flow.htm</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-APSalesForceUserObject</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>APSalesForceUserObject</command:noun>
+      <maml:description>
+        <maml:para>Create a SalesForce user object to use when creating new user</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This CmdLet will create a User hashtable containing user settings, endpoint data and method, </maml:para>
+      <maml:para>To be used together with Invoke-APSalesForceRestMethod to create a new user in SalesForce. </maml:para>
+      <maml:para></maml:para>
+      <maml:para>If a SalesForce access token is sent to this CmdLet it will try to add the user using Invoke-APSalesForceRestMethod, </maml:para>
+      <maml:para>and if it fails to add it, it will return the hashtable to be used. </maml:para>
+      <maml:para>If no SalesForce access token is sent to this CmdLet it will retrun the hashtable directly.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-APSalesForceUserObject</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Username</maml:name>
+          <maml:Description>
+            <maml:para>SalesForce Username in email format.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
+          <maml:name>EmailEncodingKey</maml:name>
+          <maml:Description>
+            <maml:para>Default encoding for email.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
+          <maml:name>LanguageLocaleKey</maml:name>
+          <maml:Description>
+            <maml:para>Language locale setting for user.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
+          <maml:name>AccessToken</maml:name>
+          <maml:Description>
+            <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
+          <maml:name>EndpointVersion</maml:name>
+          <maml:Description>
+            <maml:para>Override the default SalesForce API Version (v41.0)</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>V41.0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Firstname</maml:name>
+          <maml:Description>
+            <maml:para>First name of user.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Lastname</maml:name>
+          <maml:Description>
+            <maml:para>Last name of user.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>Email</maml:name>
+          <maml:Description>
+            <maml:para>User email address.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>Alias</maml:name>
+          <maml:Description>
+            <maml:para>User Alias, max 8 characters.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+          <maml:name>CommunityNickname</maml:name>
+          <maml:Description>
+            <maml:para>Community nickname, displayed in SalesForce online communities.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+          <maml:name>ProfileId</maml:name>
+          <maml:Description>
+            <maml:para>User profile ID, 15 characters.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+          <maml:name>TimeZoneSidKey</maml:name>
+          <maml:Description>
+            <maml:para>Users timezone.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+          <maml:name>LocaleSidKey</maml:name>
+          <maml:Description>
+            <maml:para>Users locale setting.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Username</maml:name>
+        <maml:Description>
+          <maml:para>SalesForce Username in email format.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Firstname</maml:name>
+        <maml:Description>
+          <maml:para>First name of user.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Lastname</maml:name>
+        <maml:Description>
+          <maml:para>Last name of user.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>Email</maml:name>
+        <maml:Description>
+          <maml:para>User email address.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>Alias</maml:name>
+        <maml:Description>
+          <maml:para>User Alias, max 8 characters.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="6" aliases="none">
+        <maml:name>CommunityNickname</maml:name>
+        <maml:Description>
+          <maml:para>Community nickname, displayed in SalesForce online communities.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="7" aliases="none">
+        <maml:name>ProfileId</maml:name>
+        <maml:Description>
+          <maml:para>User profile ID, 15 characters.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="8" aliases="none">
+        <maml:name>TimeZoneSidKey</maml:name>
+        <maml:Description>
+          <maml:para>Users timezone.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="9" aliases="none">
+        <maml:name>LocaleSidKey</maml:name>
+        <maml:Description>
+          <maml:para>Users locale setting.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="10" aliases="none">
+        <maml:name>EmailEncodingKey</maml:name>
+        <maml:Description>
+          <maml:para>Default encoding for email.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="11" aliases="none">
+        <maml:name>LanguageLocaleKey</maml:name>
+        <maml:Description>
+          <maml:para>Language locale setting for user.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="12" aliases="none">
+        <maml:name>AccessToken</maml:name>
+        <maml:Description>
+          <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="13" aliases="none">
+        <maml:name>EndpointVersion</maml:name>
+        <maml:Description>
+          <maml:para>Override the default SalesForce API Version (v41.0)</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>V41.0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Collections.Hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>$splat = @{
+    'Username' = 'Username@nomail.com'
+    'Firstname' = 'first'
+    'Lastname' = 'last'
+    'Email' = 'first.last@snowsoftware.com'
+    'Alias' = 'alias'
+    'CommunityNickname' = 'nick' 
+    'ProfileId' = '000000000000000'
+    'TimeZoneSidKey' = 'America/Phoenix'
+    'LocaleSidKey' = 'ar_KW'
+    'EmailEncodingKey' = 'GB2312'
+    'LanguageLocaleKey' = 'fi'
+}
+New-APSalesForceUserObject @splat</dev:code>
+        <dev:remarks>
+          <maml:para>This will return a hashtable containing user settings as stated, default (v41) endpoint, </maml:para>
+          <maml:para>and method (Post)</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>$ConnectionSplat = @{
+    'SalesForceBaseURI', 'https://my.salesforce.com'
+    'SalesForceUser', $SalesForceAdminUserCredentials
+    'SalesForceClientSecret', $SalesForceSecret 
+    'SalesForceClientID', $SalesForceUserKey 
+    'SalesForceToken', $SalesForceToken 
+    'SalesForceGrantType', $SalesForceGrantType
+}
+$UserSplat = @{
+    'Username' = 'Username@nomail.com'
+    'Firstname' = 'first'
+    'Lastname' = 'last'
+    'Email' = 'first.last@snowsoftware.com'
+    'Alias' = 'alias'
+    'CommunityNickname' = 'nick' 
+    'ProfileId' = '000000000000000'
+    'TimeZoneSidKey' = 'America/Phoenix'
+    'LocaleSidKey' = 'ar_KW'
+    'EmailEncodingKey' = 'GB2312'
+    'LanguageLocaleKey' = 'fi'
+}
+
+$SFToken = Connect-APSalesForce @ConnectionSplat
+$UserObj = New-APSalesForceUserObject @Userplat
+Invoke-APSalesForceRestMethod @UserObj -AccessToken $SFToken</dev:code>
+        <dev:remarks>
+          <maml:para>Theese commands will create and add the user to the SalesForcePlattform</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>$ConnectionSplat = @{
+    'SalesForceBaseURI', 'https://my.salesforce.com'
+    'SalesForceUser', $SalesForceAdminUserCredentials
+    'SalesForceClientSecret', $SalesForceSecret 
+    'SalesForceClientID', $SalesForceUserKey 
+    'SalesForceToken', $SalesForceToken 
+    'SalesForceGrantType', $SalesForceGrantType
+}
+$SFToken = Connect-APSalesForce @ConnectionSplat
+
+$UserSplat = @{
+    'Username' = 'Username@nomail.com'
+    'Firstname' = 'first'
+    'Lastname' = 'last'
+    'Email' = 'first.last@snowsoftware.com'
+    'Alias' = 'alias'
+    'CommunityNickname' = 'nick' 
+    'ProfileId' = '000000000000000'
+    'TimeZoneSidKey' = 'America/Phoenix'
+    'LocaleSidKey' = 'ar_KW'
+    'EmailEncodingKey' = 'GB2312'
+    'LanguageLocaleKey' = 'fi'
+    'AccessToken' = $SFToken
+}
+New-APSalesForceUserObject @Userplat</dev:code>
+        <dev:remarks>
+          <maml:para>This command will create and try to add the user to the SalesForcePlattform</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/intro_understanding_username_password_oauth_flow.htm</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+</helpItems>

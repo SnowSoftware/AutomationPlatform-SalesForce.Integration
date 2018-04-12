@@ -1,12 +1,5 @@
 <#
-.Synopsis
-   Short description
-.DESCRIPTION
-   Long description
-.EXAMPLE
-   Example of how to use this cmdlet
-.EXAMPLE
-   Another example of how to use this cmdlet
+.EXTERNALHELP Snow.SnowAutomationPlatform.SalesForce.Integration-help.xml
 #>
 function Get-APSalesForceUser
 {
