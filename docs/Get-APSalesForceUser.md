@@ -37,6 +37,7 @@ Name                           Value
 Method                         Get 
 Endpoint                       /services/data/v41.0/search/?q=FIND+{username}+IN+name+FIELDS+RETURNING+USER(Id,Phon...
 ```
+
 This command will return a hashtable containing searchquery and method.
 
 ### EXAMPLE 2
@@ -48,12 +49,14 @@ Name     Value
 Method   Get
 Endpoint /services/data/v42.0/search/?q=FIND+{username}+IN+name+FIELDS+RETURNING+USER(Id,CompanyName,Division)
 ```
+
 This command will return a searchquery using a differend endpoint version, and custom properties to return
 
 ### EXAMPLE 3
 ```
 Get-APSalesForceUser -SearchString 'username'  -AccessToken $Token
 ```
+
 This command will perform a search and return any results.
 
 If search fails it will return the hashtable used to invoke the search.
@@ -61,7 +64,9 @@ If search fails it will return the hashtable used to invoke the search.
 ## PARAMETERS
 
 ### -SearchString
-Param1 help description
+Searchstring in SalesForce API. 
+
+Minimum three characters. Accepts wildcard (* or ?) with a minimum of two characters.
 
 ```yaml
 Type: String
@@ -121,8 +126,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

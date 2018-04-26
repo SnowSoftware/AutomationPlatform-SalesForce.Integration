@@ -119,7 +119,7 @@ function New-APSalesForceUserObject
                 Invoke-APSalesForceRestMethod @ReturnObj -AccessToken $AccessToken
             }
             catch {
-                Write-Error 'Failed to invoke searchquery'
+                Write-Error 'Failed to invoke SalesForce Add user query'
                 $ReturnObj
             }
         }

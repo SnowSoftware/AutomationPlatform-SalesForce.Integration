@@ -207,6 +207,192 @@ signature    : Base64 encoded token validation
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-APSalesForceProfile</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>APSalesForceProfile</command:noun>
+      <maml:description>
+        <maml:para>This command searches for a profile in SalesForce.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will create a hashtable that can be used to search for one or more profiles in SalesForce.</maml:para>
+      <maml:para>If an AccessToken is passed it will automatically try to invoke the search query,</maml:para>
+      <maml:para>and return any object found.</maml:para>
+      <maml:para>If no AccessToken is found, it will return the hashtable containing the search endpoint and the method to use.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-APSalesForceProfile</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>SearchString</maml:name>
+          <maml:Description>
+            <maml:para>Searchstring in SalesForce API. </maml:para>
+            <maml:para>Minimum three characters. Accepts wildcard (* or ?) with a minimum of two characters.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>AccessToken</maml:name>
+          <maml:Description>
+            <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Properties</maml:name>
+          <maml:Description>
+            <maml:para>Properties to include in result</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Id</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">name</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Description</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>EndpointVersion</maml:name>
+          <maml:Description>
+            <maml:para>Override the default SalesForce API Version (v41.0)</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>AccessToken</maml:name>
+        <maml:Description>
+          <maml:para>AccessToken received from Connect-APSalesForce CmdLet</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>EndpointVersion</maml:name>
+        <maml:Description>
+          <maml:para>Override the default SalesForce API Version (v41.0)</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Properties</maml:name>
+        <maml:Description>
+          <maml:para>Properties to include in result</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>SearchString</maml:name>
+        <maml:Description>
+          <maml:para>Searchstring in SalesForce API. </maml:para>
+          <maml:para>Minimum three characters. Accepts wildcard (* or ?) with a minimum of two characters.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Collections.Hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS&gt; Get-APSalesForceProfile -SearchString '*m*a*'
+
+Name                           Value
+----                           -----
+Method                         Get
+Endpoint                       /services/data/v41.0/parameterizedSearch/?q=*m*a*&amp;sobject=Profile&amp;Profile.field...</dev:code>
+        <dev:remarks>
+          <maml:para>This command will return a hashtable containing searchquery and method.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS&gt; Get-APSalesForceProfile -SearchString 'a*b?c' -EndpointVersion 'v42.0' -Properties Description,Id,name
+
+Name                           Value
+----                           -----
+Method                         Get
+Endpoint                       /services/data/v42.0/parameterizedSearch/?q=a*b?c&amp;sobject=Profile&amp;Profile.fields=Description,Id,name</dev:code>
+        <dev:remarks>
+          <maml:para>This command will return a searchquery using a differend endpoint version, and custom properties to return</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>Get-APSalesForceProfile -SearchString 'ProfileName' -AccessToken $Token</dev:code>
+        <dev:remarks>
+          <maml:para>This command will perform a search and return any results.</maml:para>
+          <maml:para>If search fails it will return the hashtable used to invoke the search.## PARAMETERS</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-APSalesForceUser</command:name>
       <command:verb>Get</command:verb>
       <command:noun>APSalesForceUser</command:noun>
@@ -226,7 +412,8 @@ signature    : Base64 encoded token validation
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>SearchString</maml:name>
           <maml:Description>
-            <maml:para>Param1 help description</maml:para>
+            <maml:para>Searchstring in SalesForce API. </maml:para>
+            <maml:para>Minimum three characters. Accepts wildcard (* or ?) with a minimum of two characters.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -277,7 +464,8 @@ signature    : Base64 encoded token validation
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>SearchString</maml:name>
         <maml:Description>
-          <maml:para>Param1 help description</maml:para>
+          <maml:para>Searchstring in SalesForce API. </maml:para>
+          <maml:para>Minimum three characters. Accepts wildcard (* or ?) with a minimum of two characters.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
