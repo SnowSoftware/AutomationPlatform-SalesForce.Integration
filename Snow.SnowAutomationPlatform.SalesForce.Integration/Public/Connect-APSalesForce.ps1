@@ -39,6 +39,7 @@ function Connect-APSalesForce
     {
         $SalesForceUsername = $SalesForceUser.UserName
         $SalesForceServicePassword = $SalesForceUser.GetNetworkCredential().password
+        $SalesForceGrantType = $SalesForceGrantType.ToLower() # The grantype is case sensitive
 
         # The Password flag in SalesForce Authentincation should be Password and Token combined into one string without spaces.
         $PassToken = "$SalesForceServicePassword$SalesForceToken"
