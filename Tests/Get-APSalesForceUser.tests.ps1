@@ -1,45 +1,63 @@
-$moduleRoot = Resolve-Path "$PSScriptRoot\..\Snow.SnowAutomationPlatform.SalesForce.Integration"
-$ScriptPath = "$moduleRoot\Public\Get-APSalesForceUser.ps1"
-. $ScriptPath
+param ( 
+    $moduleRoot = "$PSScriptRoot\..\Snow.SnowAutomationPlatform.SalesForce.Integration"
+)
 
-Describe 'Get-APSalesForceUser.ps1' {
-    Context 'Searching for users' {
+$moduleName = Split-Path $moduleRoot -Leaf
+
+Remove-Module $moduleName -Force -ErrorAction SilentlyContinue
+Import-Module $moduleRoot -Force -ErrorAction SilentlyContinue
+
+Write-verbose "Testing against module found in: $(Resolve-Path $moduleRoot)"
+
+InModuleScope $moduleName { 
+    Describe 'Get-APSalesForceUser.ps1' {
         $TestSlpat = @{
             'SearchString' = 'UserName' 
             'Properties' =  'Alias'
             'EndpointVersion' = 1
         }
         
-        # To mock a command we need that command available, so we dot source this specific command as well.
-        . "$moduleRoot\Public\Invoke-APSalesForceRestMethod.ps1"
-        
-        it 'Should return a hashtable with user search settings' {
+        Context 'Searching for users, no token in query' {
             $a = Get-APSalesForceUser @TestSlpat
-        
-            $a.Method | Should -Be 'Get'
-            $a.Endpoint | Should -Be '/services/data/1/search/?q=FIND+{UserName}+IN+name+FIELDS+RETURNING+USER(Alias)'
+
+            it 'returned object method should be "GET"' {
+                $a.Method | Should -Be 'Get'
+            }
+            
+            it 'returned object endpoint should be correctly constructed' {
+                $a.Endpoint | Should -Be '/services/data/1/search/?q=FIND+{UserName}+IN+name+FIELDS+RETURNING+USER(Alias)'
+            }
         }
 
-        # Add AccessToken to perform invoke
-        $TestSlpat.Add('AccessToken', (New-Object -TypeName psobject))
-        
-        it 'Should try to invoke the search if a token is passed' {
-            Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {return $true}
+        Context 'Searching for Profiles, added token in query' {
+            # Add AccessToken to perform invoke
+            $TestSlpat.Add('AccessToken', (New-Object -TypeName psobject))
             
-            $Actual = Get-APSalesForceUser @TestSlpat 
+            it 'Should try to invoke the search if a token is passed' {
+                Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {return $true}
+                
+                $Actual = Get-APSalesForceUser @TestSlpat 
+                
+                $Actual | Should -Be $true
+            }
             
-            $Actual | Should -Be $true
-        }
-        
-        it 'Should return hashtable if a token is passed but the query failed' {
-            Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {throw}
+            it 'Should return hashtable if a token is passed but the query failed,returned object method should be "GET"' {
+                Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {throw}
+                
+                $Actual = Get-APSalesForceUser @TestSlpat -ErrorAction SilentlyContinue
+    
+                $Actual.Method | Should -Be 'Get'
+            }
             
-            $Actual = Get-APSalesForceUser @TestSlpat -ErrorAction SilentlyContinue
+            it 'Should return hashtable if a token is passed but the query failed, returned object endpoint should be correctly constructed' {
+                Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {throw}
+                
+                $Actual = Get-APSalesForceUser @TestSlpat -ErrorAction SilentlyContinue
+    
+                $Actual.Endpoint | Should -Be '/services/data/1/search/?q=FIND+{UserName}+IN+name+FIELDS+RETURNING+USER(Alias)'
+            }
 
-            $Actual.Method | Should -Be 'Get'
-            $Actual.Endpoint | Should -Be '/services/data/1/search/?q=FIND+{UserName}+IN+name+FIELDS+RETURNING+USER(Alias)'
+            Assert-MockCalled -CommandName Invoke-APSalesForceRestMethod -Times 3 -Exactly
         }
-
-        Assert-MockCalled -CommandName Invoke-APSalesForceRestMethod -Times 2 -Exactly
     }
 }

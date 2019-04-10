@@ -47,7 +47,7 @@ function Invoke-APSalesForceRestMethod
                 }
                 catch {
                     # body is not a json so we need to convert it.
-                    $Body = $Body | ConvertTo-Json
+                    $Body = $Body | ConvertTo-Json -Compress
                 }
 
                 # In the end, always convert to bytestream

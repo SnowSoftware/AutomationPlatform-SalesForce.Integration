@@ -1,9 +1,16 @@
-$moduleRoot = Resolve-Path "$PSScriptRoot\..\Snow.SnowAutomationPlatform.SalesForce.Integration"
-$ScriptPath = "$moduleRoot\Public\New-APSalesForceUserObject.ps1"
-. $ScriptPath
+param ( 
+    $moduleRoot = "$PSScriptRoot\..\Snow.SnowAutomationPlatform.SalesForce.Integration"
+)
 
-Describe 'New-APSalesForceUserObject' {
-    Context 'Creating user objects' {
+$moduleName = Split-Path $moduleRoot -Leaf
+
+Remove-Module $moduleName -Force -ErrorAction SilentlyContinue
+Import-Module $moduleRoot -Force -ErrorAction SilentlyContinue
+
+Write-verbose "Testing against module found in: $(Resolve-Path $moduleRoot)"
+
+InModuleScope $moduleName { 
+    Describe 'New-APSalesForceUserObject' {
         $TestSplat = @{
                 'Username'          = 'Username@username.com'         
                 'Firstname'         = 'Firstname'        
@@ -17,34 +24,42 @@ Describe 'New-APSalesForceUserObject' {
                 'EmailEncodingKey'  = 'UTF-8'
                 'LanguageLocaleKey' = 'en_US'
         }
-        
-        it 'Should return a hashtable with valid objects' {
+
+        Context 'Creating user objects, No token in parameters' {
             $a = New-APSalesForceUserObject @TestSplat
-            
-            $a.Body.Username | Should -be 'Username@username.com'
-            $a.Body.Firstname | Should -be 'Firstname'
-            $a.Body.Lastname | Should -be 'Lastname'
-            $a.Body.Email | Should -be 'Email'
-            $a.Body.Alias | Should -be 'Alias'
-            $a.Body.CommunityNickname | Should -be 'CommunityNickname'
-            $a.Body.ProfileId | Should -be 'ProfileId012345'
-            $a.Body.TimeZoneSidKey | Should -be 'Africa/Algiers'
-            $a.Body.LocaleSidKey | Should -be 'ar_AE'
-            $a.Body.EmailEncodingKey | Should -be 'UTF-8'
-            $a.Body.LanguageLocaleKey | Should -be 'en_US'
-            $a.Endpoint | Should -be '/services/data/v41.0/sobjects/user/'
-            $a.Method | Should -be 'Post'
+
+            $TestCaseBody = $TestSplat.Keys | ForEach-Object -Process {
+                @{
+                    'Name'  = $_
+                    'Value' = $TestSplat.$_
+                }
+            }
+
+            it 'Should return a hashtable with valid objects, verifying <Name>' -TestCases $TestCaseBody {
+                param ($Name, $Value)
+
+                $a.Body.$Name | Should -be $value
+            }
+
+            it 'Returned object endpoint should be set' { 
+                $a.Endpoint | Should -be '/services/data/v41.0/sobjects/user/'
+            }
+                
+            it 'Returned object Method should be set' { 
+                $a.Method | Should -be 'Post'
+            }
         }
 
-        it 'Should try to invoke the command if a usertoken is passed' {
-            # To mock a command we need that command available, so we dot source this specific command as well.
-            . "$moduleRoot\Public\Invoke-APSalesForceRestMethod.ps1"
-            Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {Return $True}
-            $TestSplat.Add('AccessToken',(New-Object -TypeName psobject -Property @{}))
-
-            New-APSalesForceUserObject @TestSplat | Should -Be $true
+        Context 'Creating user objects, token included in parameters' {
+            it 'Should try to invoke the command if a usertoken is passed' {
+                Mock -CommandName Invoke-APSalesForceRestMethod -MockWith {Return $True}
+                
+                $TestSplat.Add('AccessToken',(New-Object -TypeName psobject -Property @{}))
+    
+                New-APSalesForceUserObject @TestSplat | Should -Be $true
+            }
+    
+            Assert-MockCalled -CommandName Invoke-APSalesForceRestMethod -Times 1 -Exactly
         }
-
-        Assert-MockCalled -CommandName Invoke-APSalesForceRestMethod -Times 1 -Exactly
     }
 }

@@ -1,0 +1,19 @@
+# Custom Appveyor settings
+
+image: Visual Studio 2017
+
+matrix:
+  # immediately finish build on failure
+  fast_finish: true
+
+# Scripts that run after cloning
+install:
+  - ps: Install-Module -Name InvokeBuild, PlatyPS, PowerShellGet, Pester -SkipPublisherCheck -Force
+build_script:
+  - ps: |
+      $ErrorActionPreference = 'Stop'
+      invoke-build -File .\Build\Snow.SnowAutomationPlatform.SalesForce.Integration.BUILD.ps1
+      
+artifacts:
+- path: bin
+  name: Snow.SnowAutomationPlatform.SalesForce.Integration
