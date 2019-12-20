@@ -1,0 +1,30 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Generate build number
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.github_token}}        
+      
+    - uses: actions/checkout@v1
+    - name: Import required modules
+      run: Install-Module -Name InvokeBuild, PlatyPS, Pester -SkipPublisherCheck -Force
+      shell: powershell
+    - name: Run Pester tests and build module
+      run: |
+        $ErrorActionPreference = 'Stop'
+        invoke-build -File .\Build\Snow.SnowAutomationPlatform.SalesForce.Integration.BUILD.ps1
+      shell: powershell
+    
+    - name: Upload module artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: Snow.SnowAutomationPlatform.SalesForce.Integration
+        path: ./bin/Snow.SnowAutomationPlatform.SalesForce.Integration
