@@ -55,7 +55,7 @@ task CompilePSM {
     }
 
     if ($IsAppveyor) { 
-        $UpdateManifestParam['ModuleVersion'] = $env:APPVEYOR_BUILD_VERSION
+        $UpdateManifestParam['ModuleVersion'] = "1.0.$env:BUILD_NUMBER"
     }
 
     $ExportStrings = 'Export-ModuleMember',$PublicFunctionParam,$PublicAliasParam | Where-Object {-Not [string]::IsNullOrWhiteSpace($_)}
